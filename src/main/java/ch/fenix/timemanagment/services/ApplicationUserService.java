@@ -1,6 +1,7 @@
 package ch.fenix.timemanagment.services;
 
 import ch.fenix.timemanagment.models.ApplicationUser;
+import ch.fenix.timemanagment.models.Role;
 import ch.fenix.timemanagment.repository.ApplicationUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -78,5 +79,14 @@ public class ApplicationUserService implements UserDetailsService {
 
     public List<ApplicationUser> findAll() {
         return applicationUserRepository.findAll();
+    }
+
+    public ApplicationUser getUserById(long id) {
+        return applicationUserRepository.getApplicationUserById(id);
+    }
+
+    public void setRole(ApplicationUser user, Role role) {
+        user.setRole(role);
+        applicationUserRepository.saveAndFlush(user);
     }
 }

@@ -33,7 +33,6 @@ public class ApplicationUser {
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.REMOVE)
     private List<UserCategory> userCategories;
     @ManyToOne
-    @JoinColumn
     private Role role;
 
     public ApplicationUser(String username, String password) {
