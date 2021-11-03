@@ -45,7 +45,7 @@ public class UserCategoryService {
             for (Entry entry : entries) {
                 sum += MINUTES.between(entry.getCheckOut(), entry.getCheckIn()) / 60F;
             }
-            userCategory.setBalance(sum - amount);
+            userCategory.setBalance(Math.round((amount - sum) * 100.0F)/100.0F);
         }
     }
 }
