@@ -41,7 +41,7 @@ public class CustomAuthFilter extends UsernamePasswordAuthenticationFilter {
             .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
             .sign(algorithm);
         Map<String, String> tokens = new HashMap<>();
-        tokens.put("access_token", access_token);
+        tokens.put("token", access_token);
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
