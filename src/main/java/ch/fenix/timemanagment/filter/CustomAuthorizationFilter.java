@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static ch.fenix.timemanagment.configuration.SecurityConstants.TOKEN_PREFIX;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 
@@ -36,9 +37,9 @@ public class CustomAuthorizationFilter extends BasicAuthenticationFilter {
             filterChain.doFilter(request, response);
         } else {
             String authorizationHeader = request.getHeader(AUTHORIZATION);
-            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            if (authorizationHeader != null && authorizationHeader.startsWith(TOKEN_PREFIX)) {
                 try {
-                    String token = authorizationHeader.replace("Bearer ", "");
+                    String token = authorizationHeader.replace(TOKEN_PREFIX, "");
                     Algorithm algorithm = Algorithm.HMAC256("secret");
                     JWTVerifier verifier = JWT.require(algorithm).build();
                     DecodedJWT decodedJWT = verifier.verify(token);

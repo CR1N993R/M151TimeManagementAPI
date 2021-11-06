@@ -20,9 +20,9 @@ public class UserController {
     private final ApplicationUserService applicationUserService;
 
     @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody ApplicationUser user) {
+    public ResponseEntity<ApplicationUser> createUser(@RequestBody ApplicationUser user) {
         if (applicationUserService.saveUser(user)) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(user,HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
