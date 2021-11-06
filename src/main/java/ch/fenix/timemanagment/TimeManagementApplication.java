@@ -18,9 +18,9 @@ public class TimeManagementApplication {
     @Bean
     CommandLineRunner run (ApplicationUserService userService, RoleService roleService) {
         return args -> {
-            ApplicationUser user = new ApplicationUser("cedric", "1234");
-            ApplicationUser user1 = new ApplicationUser("cedric1", "1234");
-            ApplicationUser user2 = new ApplicationUser("cedric2", "1234");
+            ApplicationUser user = new ApplicationUser("root", "1234");
+            ApplicationUser user1 = new ApplicationUser("cedric", "1234");
+            ApplicationUser user2 = new ApplicationUser("miki", "1234");
             userService.saveUser(user);
             userService.saveUser(user1);
             userService.saveUser(user2);
