@@ -14,8 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFilter;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -35,16 +33,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests()
-                .antMatchers("/login/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/categories", "/users").authenticated()
-                .antMatchers(HttpMethod.PUT, "/users").authenticated()
-                .antMatchers("/categories/**", "/users/create-user/**", "/role", "/users/all/**").hasAnyAuthority("ROLE_ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/users/**").hasAnyAuthority("ROLE_ADMIN")
-                .antMatchers(HttpMethod.PUT, "/users/**").hasAnyAuthority("ROLE_ADMIN")
-                .antMatchers(HttpMethod.POST, "/users/**").hasAnyAuthority("ROLE_ADMIN")
-                .and().addFilter(new CustomAuthFilter(authenticationManager()))
-                .addFilter(new CustomAuthorizationFilter(authenticationManager()));
+            .and().authorizeRequests()
+            .antMatchers("/login/**").permitAll()
+            .antMatchers(HttpMethod.GET, "/categories", "/users").authenticated()
+            .antMatchers(HttpMethod.PUT, "/users").authenticated()
+            .antMatchers("/categories/**", "/users/create-user/**", "/role", "/users/all/**").hasAnyAuthority("ROLE_ADMIN")
+            .antMatchers(HttpMethod.DELETE, "/users/**").hasAnyAuthority("ROLE_ADMIN")
+            .antMatchers(HttpMethod.PUT, "/users/**").hasAnyAuthority("ROLE_ADMIN")
+            .antMatchers(HttpMethod.POST, "/users/**").hasAnyAuthority("ROLE_ADMIN")
+            .and().addFilter(new CustomAuthFilter(authenticationManager()))
+            .addFilter(new CustomAuthorizationFilter(authenticationManager()));
     }
 
     @Bean
